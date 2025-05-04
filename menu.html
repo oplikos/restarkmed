@@ -14,10 +14,18 @@
       font-family: 'GFS Didot', serif;
       background: linear-gradient(to right, #5C7D26, #F0F4D7, #5C7D26);
       color: #C51B1B;
-      font-size: 16px;
-    }
+      font-size: 20px;
+      }
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+
     .navbar, footer {
-      background-color: transparent !important;
+      /* background-color: transparent !important; */
+      background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5);
+        padding: 0.5rem;
+        border-radius: 10px 10px 10px 10px;
     }
     .nav-link, h1, h2, h3, h4, p, a, .btn {
       color: #C51B1B !important;
@@ -45,6 +53,15 @@
       top: 10px;
       right: 20px;
     }
+    .navbar-collapse {
+      background: linear-gradient(to right, #c9e0a5, #F0F4D7, #c9e0a5); /* Same as your light green background */
+      padding: 1rem;
+      border-radius: 0 0 10px 10px;
+    }
+    .navbar-collapse .nav-link {
+      color: #C51B1B !important;
+    }
+
   </style>
 </head>
 <body>
@@ -56,21 +73,20 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html#top">Home</a></li>
+    <div class="collapse navbar-collapse text-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active"><a class="nav-link" href="index.html#top">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#catering">Contact</a></li>
-        <li class="nav-item active"><a class="nav-link" href="#">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
       </ul>
-      <div class="font-controls">
-        <button class="btn btn-sm btn-outline-dark" onclick="adjustFontSize(-1)">A-</button>
-        <button class="btn btn-sm btn-outline-dark" onclick="adjustFontSize(3)">A+</button>
-      </div>
     </div>
+    <div class="ml-auto d-flex align-items-center">
+      <button class="btn btn-sm btn-outline-dark mx-1" onclick="adjustFontSize(-1)">A-</button>
+      <button class="btn btn-sm btn-outline-dark mx-1" onclick="adjustFontSize(3)">A+</button>
+    </div>    
   </nav>
 </header>
-
 <main class="container pt-5 mt-5">
   <h2 class="text-center mb-4">Kabob Plates</h2>
   <div class="row">
