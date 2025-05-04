@@ -20,12 +20,16 @@
         overflow-x: hidden;
         max-width: 100%;
       }
-
     .navbar, footer {
       /* background-color: transparent !important; */
       background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5);
         padding: 0.5rem;
         border-radius: 10px 10px 10px 10px;
+    }
+    footer.page-footer {
+      background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5);
+      color: #C51B1B;
+      border-radius: 10px 10px 0 0;
     }
     .nav-link, h1, h2, h3, h4, p, a, .btn {
       color: #C51B1B !important;
@@ -138,7 +142,9 @@
 </main>
 
 <footer class="page-footer text-center py-4">
-  <p>&copy; 2025 Ark Mediterranean Grill. All rights reserved.</p>
+  <div class="container">
+    <p>&copy; 2025 Ark Mediterranean Grill. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>

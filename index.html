@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,6 +28,12 @@
         padding: 0.5rem;
         border-radius: 10px 10px 10px 10px;
     }
+    footer.page-footer {
+      background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5);
+      color: #C51B1B;
+      border-radius: 10px 10px 0 0;
+    }
+
       .nav-link, h1, h2, h3, h4, p, a, .special-title-1, .special-title-2,
       .homepage-about-us-description, .carousel-caption h1, .carousel-caption h4,
       .btn {
@@ -39,8 +44,13 @@
         border-color: #C51B1B;
       }
       .homepage-about-us {
-        background: transparent !important;
+        background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5) !important;
       }
+      #catering .border {
+        border: none !important;
+        background: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5);
+      }
+
       .navbar-collapse {
         background-color: linear-gradient(to right,  #c9e0a5, #F0F4D7, #c9e0a5); /* Same as your light green background */
         padding: 0.5rem;
@@ -205,8 +215,11 @@
 </main>
 
 <footer class="page-footer text-center py-4">
-  <p>&copy; 2025 Ark Mediterranean Grill. All rights reserved.</p>
+  <div class="container">
+    <p>&copy; 2025 Ark Mediterranean Grill. All rights reserved.</p>
+  </div>
 </footer>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
