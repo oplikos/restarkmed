@@ -132,15 +132,16 @@
   document.addEventListener('DOMContentLoaded', () => {
     const cover = document.querySelector('.carousel-inner');
 
-    for (let i = 0; i <= 17; i++) {
+    for (let i = 0; i <= 6; i++) {
       const active = i === 0 ? 'active' : '';
       cover.innerHTML += `
         <div class="carousel-item ${active}">
-          <img src="resources/images/cover-homepage-${i}.jpg" class="d-block w-100" alt="Slide ${i}">
+          <img src="resources/HomePageImages/gallery (${i}).jpg" class="d-block w-100" alt="Slide ${i}">
           <div class="carousel-caption">
             <h1 class="display-2 animated fadeInDown">ARK</h1>
             <h4 class="animated fadeInDown">MEDITERRANEAN GRILL</h4>
-            <a class="mt-3 btn btn-light animated fadeInUp" href="#catering">ORDER CATERING</a>
+            <a class="mt-3 btn btn-light animated fadeInUp" href="#catering">CATERING</a>
+            <a class="mt-3 btn btn-light animated fadeInUp" href="menu.html">MENU</a>
           </div>
         </div>`;
     }
