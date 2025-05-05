@@ -103,15 +103,30 @@
 <script>
    let baseFontSize = 16;
 
-    function adjustFontSize(change) {
-      baseFontSize = Math.max(10, Math.min(40, baseFontSize + change));
-      document.body.style.fontSize = baseFontSize + "px";
-    }
 
-    // Initialize on load
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.style.fontSize = baseFontSize + "px";
+
+  function adjustFontSize(change) {
+    baseFontSize = Math.max(10, Math.min(40, baseFontSize + change));
+    adjustAllFontSizes(change);
+  }
+
+  function adjustAllFontSizes(change) {
+    const allElements = document.querySelectorAll('body *');
+
+    allElements.forEach(el => {
+      const computedStyle = window.getComputedStyle(el);
+      const currentSize = parseFloat(computedStyle.fontSize);
+      
+      // Skip elements that are not visible or inside <script>/<style>
+      if (!isNaN(currentSize) && el.offsetParent !== null) {
+        el.style.fontSize = (currentSize + change) + "px";
+      }
     });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.style.fontSize = baseFontSize + "px";
+  });
   document.addEventListener('DOMContentLoaded', () => {
     const cover = document.querySelector('.carousel-inner');
 
