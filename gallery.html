@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Gallery | Ark Mediterranean Grill</title>
-  
+
   <!-- Styles -->
   <link rel="stylesheet" href="resources/css/bootstrap.css" />
   <link rel="stylesheet" href="resources/css/font-awesome.min.css" />
@@ -135,12 +135,20 @@
     document.addEventListener("DOMContentLoaded", () => {
       const row = document.getElementById("gallery-row");
 
-      // Dynamically create 17 images
-      for (let i = 0; i <= 16; i++) {
+      // Dynamically create images for gallery (1-35)
+      for (let i = 17; i <= 35; i++) {
         const col = document.createElement("div");
         col.className = "col-md-4 col-sm-6 mb-4";
         col.innerHTML = `
-          <img src="resources/images/cover-homepage-${i}.jpg" class="img-fluid img-thumbnail gallery-image" alt="Gallery Image ${i}">
+          <img src="resources/images/gallery (${i}).png" class="img-fluid img-thumbnail gallery-image" alt="Gallery Image ${i}">
+        `;
+        row.appendChild(col);
+      }
+      for (let i = 1; i <= 17; i++) {
+        const col = document.createElement("div");
+        col.className = "col-md-4 col-sm-6 mb-4";
+        col.innerHTML = `
+          <img src="resources/images/gallery (${i}).jpg" class="img-fluid img-thumbnail gallery-image" alt="Gallery Image ${i}">
         `;
         row.appendChild(col);
       }
