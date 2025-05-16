@@ -82,6 +82,14 @@
   </div>
 
     <script>
+    function parseCoordinates() {
+      const input = document.getElementById("coord").value;
+      const parts = input.split(',').map(x => x.trim());
+      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        document.getElementById("lat").value = parts[0];
+        document.getElementById("lng").value = parts[1];
+      }
+    }
     async function getSpeedLimit() {
       const lat = document.getElementById('latitude').value.trim();
       const lon = document.getElementById('longitude').value.trim();
