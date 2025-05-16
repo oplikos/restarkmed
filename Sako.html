@@ -1,50 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Speed Limit Finder</title>
+  <meta charset="UTF-8">
+  <title>Speed Limit Finder – TomTom API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+
+    .container {
+      background: white;
+      max-width: 400px;
+      margin: auto;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #555;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005a9e;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <h2>Speed Limit Lookup</h2>
-  <label for="lat">Latitude:</label>
-  <input type="text" id="lat" placeholder="e.g. 36.152833"><br><br>
-  <label for="lng">Longitude:</label>
-  <input type="text" id="lng" placeholder="e.g. -119.330583"><br><br>
-  <button onclick="getSpeedLimit()">Get Speed Limit</button>
+  <div class="container">
+    <h2>Speed Limit Finder</h2>
+
+    <label>Coordinates (lat, lng):</label>
+    <input type="text" id="coord" placeholder="e.g. 36.152833, -119.330583" oninput="parseCoordinates()">
+
+    <label>Latitude:</label>
+    <input type="text" id="lat" placeholder="Latitude">
+
+    <label>Longitude:</label>
+    <input type="text" id="lng" placeholder="Longitude">
+
+    <button onclick="getSpeedLimit()">Get Speed Limit</button>
+
+    <p id="result"></p>
+  </div>
 
   <script>
-    async function getSpeedLimit() {
-      const lat = document.getElementById('lat').value;
-      const lng = document.getElementById('lng').value;
+    function parseCoordinates() {
+      const input = document.getElementById("coord").value;
+      const parts = input.split(',').map(x => x.trim());
+      if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+        document.getElementById("lat").value = parts[0];
+        document.getElementById("lng").value = parts[1];
+      }
+    }
 
-      const apiKey = 'AIzaSyCX01CSNttFmKZXcXs_lXEJ9aVwKiZFlKk';
+    async function getSpeedLimit() {
+      const lat = document.getElementById("lat").value;
+      const lng = document.getElementById("lng").value;
+      const apiKey = 'AH8iyMum3UzkXGuoNOCV3Qgl6ZZOVRvM'; // Replace this with your real API key
+
+      if (!lat || !lng) {
+        document.getElementById("result").innerText = "Please enter valid latitude and longitude.";
+        return;
+      }
+
+      const url = `https://api.tomtom.com/traffic/services/4/speed/point/${lat},${lng}.json?key=${apiKey}`;
 
       try {
-        // Step 1: Snap to Roads
-        const snapUrl = `https://roads.googleapis.com/v1/snapToRoads?path=${lat},${lng}&interpolate=false&key=${apiKey}`;
-        const snapResp = await fetch(snapUrl);
-        const snapData = await snapResp.json();
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(await response.text());
+        const data = await response.json();
 
-        if (!snapData.snappedPoints || snapData.snappedPoints.length === 0) {
-          alert("No road found at this location.");
-          return;
-        }
+        const speed = data?.flowSegmentData?.freeFlowSpeed;
+        const units = data?.flowSegmentData?.freeFlowSpeedUnits;
 
-        const placeId = snapData.snappedPoints[0].placeId;
-
-        // Step 2: Get Speed Limit
-        const speedUrl = `https://roads.googleapis.com/v1/speedLimits?placeId=${placeId}&key=${apiKey}`;
-        const speedResp = await fetch(speedUrl);
-        const speedData = await speedResp.json();
-
-        if (speedData.speedLimits && speedData.speedLimits.length > 0) {
-          const speed = speedData.speedLimits[0].speedLimit;
-          const units = speedData.speedLimits[0].units;
-          alert(`Speed Limit: ${speed} ${units}`);
+        if (speed && units) {
+          document.getElementById("result").innerText = `Speed Limit: ${speed} ${units}`;
         } else {
-          alert("Speed limit data not available.");
+          document.getElementById("result").innerText = "No speed limit data found for this location.";
         }
-      } catch (error) {
-        alert("Error fetching speed limit data: " + error.message);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("result").innerText = "Error fetching speed limit. Check API key or network.";
       }
     }
   </script>
