@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Speed Limit Finder</title>
+</head>
+<body>
+  <h2>Speed Limit Lookup</h2>
+  <label for="lat">Latitude:</label>
+  <input type="text" id="lat" placeholder="e.g. 36.152833"><br><br>
+  <label for="lng">Longitude:</label>
+  <input type="text" id="lng" placeholder="e.g. -119.330583"><br><br>
+  <button onclick="getSpeedLimit()">Get Speed Limit</button>
+
+  <script>
+    async function getSpeedLimit() {
+      const lat = document.getElementById('lat').value;
+      const lng = document.getElementById('lng').value;
+
+      const apiKey = 'AIzaSyCX01CSNttFmKZXcXs_lXEJ9aVwKiZFlKk';
+
+      try {
+        // Step 1: Snap to Roads
+        const snapUrl = `https://roads.googleapis.com/v1/snapToRoads?path=${lat},${lng}&interpolate=false&key=${apiKey}`;
+        const snapResp = await fetch(snapUrl);
+        const snapData = await snapResp.json();
+
+        if (!snapData.snappedPoints || snapData.snappedPoints.length === 0) {
+          alert("No road found at this location.");
+          return;
+        }
+
+        const placeId = snapData.snappedPoints[0].placeId;
+
+        // Step 2: Get Speed Limit
+        const speedUrl = `https://roads.googleapis.com/v1/speedLimits?placeId=${placeId}&key=${apiKey}`;
+        const speedResp = await fetch(speedUrl);
+        const speedData = await speedResp.json();
+
+        if (speedData.speedLimits && speedData.speedLimits.length > 0) {
+          const speed = speedData.speedLimits[0].speedLimit;
+          const units = speedData.speedLimits[0].units;
+          alert(`Speed Limit: ${speed} ${units}`);
+        } else {
+          alert("Speed limit data not available.");
+        }
+      } catch (error) {
+        alert("Error fetching speed limit data: " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
