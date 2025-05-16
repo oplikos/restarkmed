@@ -92,9 +92,17 @@
     }
 
     async function getSpeedLimit() {
-      const lat = document.getElementById('lat').value.trim();
-      const lon = document.getElementById('lng').value.trim();
+      const latEl = document.getElementById('lat');
+      const lonEl = document.getElementById('lng');
       const resultDiv = document.getElementById('result');
+
+      if (!latEl || !lonEl || !resultDiv) {
+        console.error("One or more input elements not found.");
+        return;
+      }
+
+      const lat = latEl.value.trim();
+      const lon = lonEl.value.trim();
 
       if (!lat || !lon || isNaN(lat) || isNaN(lon)) {
         resultDiv.textContent = 'Please enter valid latitude and longitude.';
@@ -122,9 +130,8 @@
 
         const data = await response.json();
 
-        if (data.elements && data.elements.length > 0) {
-          const maxspeed = data.elements[0].tags.maxspeed;
-          resultDiv.textContent = `Speed Limit: ${maxspeed}`;
+        if (data.elements && data.elements.length > 0 && data.elements[0].tags.maxspeed) {
+          resultDiv.textContent = `Speed Limit: ${data.elements[0].tags.maxspeed}`;
         } else {
           resultDiv.textContent = 'No speed limit data found for this location.';
         }
