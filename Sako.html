@@ -103,7 +103,7 @@
 
       const lat = latEl.value.trim();
       const lon = lonEl.value.trim();
-
+      console.error("lat=",lat." lon=",lon);
       if (!lat || !lon || isNaN(lat) || isNaN(lon)) {
         resultDiv.textContent = 'Please enter valid latitude and longitude.';
         return;
